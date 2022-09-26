@@ -11,7 +11,6 @@ pipeline {
         stage('Docker') {
             steps {
                 script {
-                sh 'docker images'
                 sh 'docker build -t simple-maven-image .'
                 sh 'docker images'
                 }
@@ -27,11 +26,12 @@ pipeline {
             stage('AWS ECR push') {
                 steps {
                     script {
-                    sh 'docker tag simple-maven-image:latest public.ecr.aws/k3b8b1b7/simple-maven-image:${BUILD_NUMBER}'
-                    sh 'docker push public.ecr.aws/k3b8b1b7/simple-maven-image:${BUILD_NUMBER}'
+                    sh 'docker tag maven-image:latest public.ecr.aws/k3b8b1b7/maven-image:${BUILD_NUMBER}'
+                    sh 'docker push public.ecr.aws/k3b8b1b7/maven-image:${BUILD_NUMBER}'
                     }
                 }
             }
         }
         
     }
+   
